@@ -64,12 +64,12 @@ android:layout_height="match_parent">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="20dp"
             android:layout_weight="1"
-            android:inputType="date"
-            android:hint="2021/01/01"></TextView>
+            android:hint="DATE"
+            android:inputType="date"></TextView>
 
         <Button
             android:id="@+id/todoDateBtn"
@@ -91,11 +91,12 @@ android:layout_height="match_parent">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="20dp"
             android:layout_weight="1"
             android:inputType="time"
-            android:hint="10:59"></TextView>
+            android:hint="TIME"></TextView>
 
         <Button
             android:id="@+id/todoTimeBtn"

@@ -5,6 +5,7 @@ import android.app.TimePickerDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.graphics.Color
+import android.graphics.Paint
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -24,6 +25,7 @@ import page.chungjungsoo.to_dosample.todo.TodoDatabaseHelper
 import page.chungjungsoo.to_dosample.todo.TodoListViewAdapter
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -74,7 +76,9 @@ class MainActivity : AppCompatActivity() {
             val timeToAdd = dialogView.findViewById<TextView>(R.id.todoTime)
             val timeBtnToAdd = dialogView.findViewById<Button>(R.id.todoTimeBtn)
             val finishedToAdd = dialogView.findViewById<CheckBox>(R.id.todoFinished)
-            val finishedBtn = todoList.findViewById<Button>(R.id.finished)
+
+
+
 
             // Add InputMethodManager for auto keyboard popup
             val ime = applicationContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -144,6 +148,8 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             })
+
+
             // 날짜 클릭이 안되어도 현재 날짜로 표시 되게끔.
             val date = Date()
             val time: String = mFormat.format(date)

@@ -6,6 +6,7 @@ import android.app.DatePickerDialog.OnDateSetListener
 import android.app.TimePickerDialog
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,17 +28,23 @@ class TodoListViewAdapter (context: Context, var resource: Int, var items: Mutab
         val description : TextView = view.findViewById(R.id.listDesciption)
         val edit : Button = view.findViewById(R.id.editBtn)
         val delete : Button = view.findViewById(R.id.delBtn)
-        val finishedBtn : Button = view.findViewById(R.id.finished)
-        val background : LinearLayout = view.findViewById(R.id.klist)
+        val finishtext : TextView = view.findViewById(R.id.finishtext)
+
+
+
 
         db = TodoDatabaseHelper(this.context)
-        finishedBtn.isClickable = false
         // Get to-do item
         var todo = items[position]
 
         // Load title and description to single ListView item
         title.text = todo.title
         description.text = todo.date + " : "+ todo.description
+        if (todo.finished) {
+            finishtext.setText("finished!")
+        }else {
+            finishtext.setText("not finished!")
+        }
         // list description 에 다 넣음 .
         // 귀찮으니까 description에다가 모두 넣기.
 
@@ -56,6 +63,7 @@ class TodoListViewAdapter (context: Context, var resource: Int, var items: Mutab
             val finishedToAdd = dialogView.findViewById<CheckBox>(R.id.todoFinished)
 
 
+
             val ime = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
             //load한거 표현하기.
@@ -64,7 +72,6 @@ class TodoListViewAdapter (context: Context, var resource: Int, var items: Mutab
             dateToAdd.setText(todo.date)
             timeToAdd.setText(todo.time)
             finishedToAdd.isChecked = todo.finished
-
 
             titleToAdd.requestFocus()
             ime.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
@@ -99,6 +106,7 @@ class TodoListViewAdapter (context: Context, var resource: Int, var items: Mutab
                 builder.show()
             }
 
+
             builder.setView(dialogView)
                 .setPositiveButton("수정") { _, _ ->
                     val tmp = Todo(
@@ -116,6 +124,7 @@ class TodoListViewAdapter (context: Context, var resource: Int, var items: Mutab
                         todo.finished = finishedToAdd.isChecked
                         todo.date = dateToAdd.text.toString()
                         todo.time = timeToAdd.text.toString()
+
 
 
                         notifyDataSetChanged()
