@@ -78,8 +78,7 @@ class MainActivity : AppCompatActivity() {
             val finishedToAdd = dialogView.findViewById<CheckBox>(R.id.todoFinished)
 
 
-
-
+    //
             // Add InputMethodManager for auto keyboard popup
             val ime = applicationContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
