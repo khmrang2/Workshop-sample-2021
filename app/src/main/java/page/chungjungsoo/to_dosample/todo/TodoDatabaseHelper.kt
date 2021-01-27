@@ -13,6 +13,8 @@ class TodoDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, 
         private val ID = "id"
         private val TITLE = "Title"
         private val DESC = "Desciption"
+        private val DATE = "Date"
+        private val TIME = "Time"
         private val FIN = "Finished"
     }
 
@@ -23,7 +25,9 @@ class TodoDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, 
                     "($ID INTEGER PRIMARY KEY," +
                     "$TITLE TEXT," +
                     "$DESC TEXT," +
-                    "$FIN INTEGER DEFAULT 0)"
+                    "$FIN INTEGER DEFAULT 0," +
+                    "$DATE TEXT," +
+                    "$TIME TEXT)"
 
         db?.execSQL(createTable)
     }
@@ -38,6 +42,8 @@ class TodoDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, 
         values.put(TITLE, todo.title)
         values.put(DESC, todo.description)
         values.put(FIN, booleanToInteger(todo.finished))
+        values.put(DATE, todo.date)
+        values.put(TIME, todo.time)
 
         val _success = db.insert(TABLE_NAME, null, values)
         db.close()
@@ -63,6 +69,8 @@ class TodoDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, 
         values.put(TITLE, todo.title)
         values.put(DESC, todo.description)
         values.put(FIN, booleanToInteger(todo.finished))
+        values.put(DATE, todo.date)
+        values.put(TIME, todo.time)
 
         val result = db.update(TABLE_NAME, values, "$ID IN(SELECT $ID FROM $TABLE_NAME LIMIT 1 OFFSET $position)", null) > 0
         db.close()
@@ -79,6 +87,8 @@ class TodoDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, 
         var title : String
         var desciption : String
         var finished : Boolean
+        var date : String
+        var time : String
 
         if (cursor != null) {
             if (cursor.moveToFirst()) {
@@ -86,8 +96,9 @@ class TodoDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, 
                     title = cursor.getString(cursor.getColumnIndex(TITLE))
                     desciption = cursor.getString(cursor.getColumnIndex(DESC))
                     finished = integerToBoolean(cursor.getInt(cursor.getColumnIndex(FIN)))
-
-                    allTodo.add(Todo(title, desciption, finished))
+                    date = cursor.getString(cursor.getColumnIndex(DATE))
+                    time = cursor.getString(cursor.getColumnIndex(TIME))
+                    allTodo.add(Todo(title, desciption, finished, date, time))
                 } while (cursor.moveToNext())
             }
         }
